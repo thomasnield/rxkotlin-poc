@@ -1,8 +1,10 @@
 import io.reactivex.rxkotlin.observable.*
 import io.reactivex.rxkotlin.subscriber.subscribe
 import kotlinx.coroutines.experimental.CommonPool
+import kotlinx.coroutines.experimental.delay
 import kotlinx.coroutines.experimental.runBlocking
 import org.junit.Test
+import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicBoolean
 
 class ObservableTest {
@@ -49,5 +51,14 @@ class ObservableTest {
         Observable.range(1,10)
                 .take(5)
                 .subscribe(onNext=::println)
+    }
+
+    @Test
+    fun testInterval() = runBlocking {
+
+        Observable.interval(1, TimeUnit.SECONDS)
+                .subscribe(onNext=::println)
+
+        delay(5000)
     }
 }
