@@ -44,4 +44,10 @@ class ObservableTest {
         source.subscribe { println("Sub 1: $it")}
         source.subscribe { println("Sub 2: $it")}
     }
+    @Test
+    fun testRangeAndTake() {
+        Observable.range(1,10)
+                .take(5)
+                .subscribe(onNext=::println)
+    }
 }

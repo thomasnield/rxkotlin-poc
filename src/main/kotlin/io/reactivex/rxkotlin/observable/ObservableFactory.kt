@@ -32,5 +32,15 @@ inline fun <T> Observable.Factory.defer(crossinline observable: () -> Observable
 }
 
 
-
+fun Observable.Factory.range(rangeStart: Int, rangeEnd: Int) = object: Observable<Int> {
+    override fun subscribe(subscriber: Subscriber<in Int>) {
+        try {
+            (rangeStart..rangeEnd)
+                    .forEach(subscriber::onNext)
+            subscriber.onComplete()
+        } catch (e: Exception) {
+            subscriber.onError(e)
+        }
+    }
+}
 
