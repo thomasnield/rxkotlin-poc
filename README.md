@@ -7,6 +7,7 @@ This is an attempt to implement Rx in pure Kotlin using Kotlin coroutines to han
 But so far, it is clear there is an opportunity to create an Rx implementation in Kotlin with little effort. 
 
 Recommended reading to help contribute: 
+
 [Coroutines Guide](https://github.com/Kotlin/kotlinx.coroutines/blob/master/coroutines-guide.md)
 
 [Coroutines and Reactive Streams](https://github.com/Kotlin/kotlinx.coroutines/blob/master/reactive/coroutines-guide-reactive.md)
