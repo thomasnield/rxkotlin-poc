@@ -4,7 +4,7 @@
 
 This is an attempt to implement Rx in pure Kotlin using Kotlin coroutines to handle concurrency and backpressure. There are only a handful of operators at the moment, and a couple loose ends need to be worked out like disposal. 
 
-But so far, it is clear there is an opportunity to create an Rx implementation with Kotlin with little effort. 
+But so far, it is clear there is an opportunity to create an Rx implementation in Kotlin with little effort. 
 
 Recommended reading to help contribute: 
 [Coroutines Guide](https://github.com/Kotlin/kotlinx.coroutines/blob/master/coroutines-guide.md)
