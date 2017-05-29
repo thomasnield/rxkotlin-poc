@@ -1,3 +1,7 @@
+# RxKotlin POC
+
+![](https://www.javacodegeeks.com/wp-content/uploads/2016/02/rx_logo_512.png)
+
 This is an attempt to implement Rx in pure Kotlin using Kotlin coroutines to handle concurrency and backpressure. There are only a handful of operators at the moment, and a couple loose ends need to be worked out like disposal. 
 
 But so far, it is clear there is an opportunity to create an Rx implementation with Kotlin with little effort. 
