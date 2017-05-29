@@ -24,7 +24,7 @@ fun <T> Observable.Factory.fromIterable(items: Iterable<T>) = object: Observable
     }
 }
 
-fun <T> Observable.Factory.defer(observable: () -> Observable<T>) = object: Observable<T> {
+inline fun <T> Observable.Factory.defer(crossinline observable: () -> Observable<T>) = object: Observable<T> {
     override fun subscribe(subscriber: Subscriber<in T>) {
         val newObservable = observable()
         newObservable.subscribe(subscriber)
