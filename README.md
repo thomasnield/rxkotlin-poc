@@ -43,5 +43,15 @@ fun testObserveOn() = runBlocking {
                 println("$it ${Thread.currentThread().name}")
             }
 }
+
+@Test
+fun testObservableDefer() {
+    val state = AtomicBoolean(true)
+
+    val source = Observable.defer { Observable.just(state.getAndSet(false)) }
+
+    source.subscribe { println("Sub 1: $it")}
+    source.subscribe { println("Sub 2: $it")}
+}
 ```
 

@@ -43,6 +43,5 @@ class ObservableTest {
 
         source.subscribe { println("Sub 1: $it")}
         source.subscribe { println("Sub 2: $it")}
-
     }
 }
