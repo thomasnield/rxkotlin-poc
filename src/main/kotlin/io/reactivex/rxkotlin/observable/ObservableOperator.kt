@@ -57,3 +57,53 @@ fun <T> Observable<T>.subscribeOn(context: CoroutineContext): Observable<T> = ob
         }
     }
 }
+
+fun <T> Observable<T>.observeOn(context: CoroutineContext): Observable<T> = object: Observable<T> {
+
+    private val upstream: Observable<T> = this@observeOn
+
+    override fun subscribe(subscriber: Subscriber<in T>) {
+
+        upstream.subscribe(object : Subscriber<T> {
+            override fun onComplete() {
+                launch(context) {
+                    subscriber.onComplete()
+                }
+            }
+
+            override fun onNext(t: T) {
+                launch(context) {
+                    subscriber.onNext(t)
+                }
+            }
+
+            override fun onError(t: Throwable) {
+                launch(context) {
+                    subscriber.onError(t)
+                }
+            }
+
+            override fun onSubscribe(s: Subscription) = subscriber.onSubscribe(s)
+        })
+    }
+}
+
+inline fun <T> Observable<T>.doOnNext(crossinline onNext: (T) -> Unit) = object: Observable<T> {
+    private val upstream: Observable<T> = this@doOnNext
+
+    override fun subscribe(subscriber: Subscriber<in T>) {
+
+        upstream.subscribe(object : Subscriber<T> {
+            override fun onComplete() = subscriber.onComplete()
+
+            override fun onNext(t: T) {
+                onNext(t)
+                subscriber.onNext(t)
+            }
+
+            override fun onError(t: Throwable) = subscriber.onError(t)
+
+            override fun onSubscribe(s: Subscription) = subscriber.onSubscribe(s)
+        })
+    }
+}
