@@ -3,6 +3,7 @@ import io.reactivex.rxkotlin.subscriber.subscribe
 import kotlinx.coroutines.experimental.CommonPool
 import kotlinx.coroutines.experimental.runBlocking
 import org.junit.Test
+import java.util.concurrent.atomic.AtomicBoolean
 
 class ObservableTest {
     @Test
@@ -32,5 +33,16 @@ class ObservableTest {
                 .subscribe {
                     println("$it ${Thread.currentThread().name}")
                 }
+    }
+
+    @Test
+    fun testObservableDefer() {
+        val state = AtomicBoolean(true)
+
+        val source = Observable.defer { Observable.just(state.getAndSet(false)) }
+
+        source.subscribe { println("Sub 1: $it")}
+        source.subscribe { println("Sub 2: $it")}
+
     }
 }
