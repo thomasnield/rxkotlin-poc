@@ -4,7 +4,6 @@ import org.reactivestreams.Subscriber
 
 fun <T> Observable.Factory.just(vararg items: T) = object: Observable<T> {
     override fun subscribe(subscriber: Subscriber<in T>) {
-
         try {
             items.forEach(subscriber::onNext)
             subscriber.onComplete()
