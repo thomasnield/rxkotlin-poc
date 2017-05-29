@@ -13,7 +13,11 @@ inline fun <T,R> Observable<T>.map(crossinline mapper: (T) -> R): Observable<R> 
         upstream.subscribe(object: Subscriber<T> {
             override fun onComplete() = subscriber.onComplete()
 
-            override fun onNext(t: T) = subscriber.onNext(mapper(t))
+            override fun onNext(t: T) = try {
+                subscriber.onNext(mapper(t))
+            } catch (e: Throwable) {
+                onError(e)
+            }
 
             override fun onError(t: Throwable) = subscriber.onError(t)
 
@@ -30,7 +34,11 @@ inline fun <T> Observable<T>.filter(crossinline predicate: (T) -> Boolean): Obse
         upstream.subscribe(object: Subscriber<T> {
             override fun onComplete() = subscriber.onComplete()
 
-            override fun onNext(t: T) = if (predicate(t)) subscriber.onNext(t) else Unit
+            override fun onNext(t: T) = try {
+                if (predicate(t)) subscriber.onNext(t) else Unit
+            } catch (e: Throwable) {
+                onError(e)
+            }
 
             override fun onError(t: Throwable) = subscriber.onError(t)
 
@@ -48,7 +56,11 @@ fun <T> Observable<T>.subscribeOn(context: CoroutineContext): Observable<T> = ob
             upstream.subscribe(object : Subscriber<T> {
                 override fun onComplete() = subscriber.onComplete()
 
-                override fun onNext(t: T) = subscriber.onNext(t)
+                override fun onNext(t: T) = try {
+                    subscriber.onNext(t)
+                } catch (e: Throwable) {
+                    onError(e)
+                }
 
                 override fun onError(t: Throwable) = subscriber.onError(t)
 
@@ -72,8 +84,12 @@ fun <T> Observable<T>.observeOn(context: CoroutineContext): Observable<T> = obje
             }
 
             override fun onNext(t: T) {
-                launch(context) {
-                    subscriber.onNext(t)
+                try {
+                    launch(context) {
+                        subscriber.onNext(t)
+                    }
+                } catch (e: Throwable) {
+                    onError(e)
                 }
             }
 
@@ -97,8 +113,12 @@ inline fun <T> Observable<T>.doOnNext(crossinline onNext: (T) -> Unit) = object:
             override fun onComplete() = subscriber.onComplete()
 
             override fun onNext(t: T) {
-                onNext(t)
-                subscriber.onNext(t)
+                try {
+                    onNext(t)
+                    subscriber.onNext(t)
+                } catch (e: Throwable) {
+                    onError(e)
+                }
             }
 
             override fun onError(t: Throwable) = subscriber.onError(t)
