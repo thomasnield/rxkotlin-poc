@@ -1,4 +1,4 @@
-package io.reactivex.rxkotlin
+package io.reactivex.rxkotlin.subscriber
 
 import io.reactivex.rxkotlin.observable.Observable
 import org.reactivestreams.Subscriber

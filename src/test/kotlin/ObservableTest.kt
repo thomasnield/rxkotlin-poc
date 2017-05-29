@@ -1,5 +1,5 @@
 import io.reactivex.rxkotlin.observable.*
-import io.reactivex.rxkotlin.subscribe
+import io.reactivex.rxkotlin.subscriber.subscribe
 import kotlinx.coroutines.experimental.CommonPool
 import kotlinx.coroutines.experimental.runBlocking
 import org.junit.Test
