@@ -6,19 +6,19 @@ This is an attempt to implement Rx in pure Kotlin using Kotlin coroutines to han
 
 But so far, it is clear there is an opportunity to create an Rx implementation in Kotlin with less effort than Java. 
 
-# Jake Wharton's POC
+## Jake Wharton's POC
 
 Be sure to check out Jake Wharton's Reagent POC, which is seeking to be multiplatform and a more thought-out type hierarchy. 
 
 https://github.com/JakeWharton/Reagent/
 
-**Recommended reading to help contribute:** 
+## Recommended reading to help contribute
 
 [Coroutines Guide](https://github.com/Kotlin/kotlinx.coroutines/blob/master/coroutines-guide.md)
 
 [Coroutines and Reactive Streams](https://github.com/Kotlin/kotlinx.coroutines/blob/master/reactive/coroutines-guide-reactive.md)
 
-**Examples**
+## Examples
 
 ```kotlin
 @Test
