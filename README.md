@@ -4,7 +4,13 @@
 
 This is an attempt to implement Rx in pure Kotlin using Kotlin coroutines to handle concurrency and backpressure. There are only a handful of operators at the moment, and a couple loose ends need to be worked out like disposal. 
 
-But so far, it is clear there is an opportunity to create an Rx implementation in Kotlin with little effort. 
+But so far, it is clear there is an opportunity to create an Rx implementation in Kotlin with less effort than Java. 
+
+# Jake Wharton's POC
+
+Be sure to check out Jake Wharton's Reagent POC, which is seeking to be multiplatform and a more thought-out type hierarchy. 
+
+https://github.com/JakeWharton/Reagent/
 
 **Recommended reading to help contribute:** 
 
