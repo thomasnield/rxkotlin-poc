@@ -1,6 +1,6 @@
 # RxKotlin POC
 
-** NOTE: This project is at the moment abandoned in pursuit of other interests** 
+**NOTE: This project is at the moment abandoned** 
 
 This is an attempt to implement Rx in pure Kotlin using Kotlin coroutines to handle concurrency and backpressure. There are only a handful of operators at the moment, and a couple loose ends need to be worked out like disposal. 
 
