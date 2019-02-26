@@ -1,10 +1,11 @@
 package io.reactivex.rxkotlin.observable
 
-import kotlinx.coroutines.experimental.Job
-import kotlinx.coroutines.experimental.launch
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import org.reactivestreams.Subscriber
 import org.reactivestreams.Subscription
-import kotlin.coroutines.experimental.CoroutineContext
+import kotlin.coroutines.CoroutineContext
 
 inline fun <T,R> Observable<T>.map(crossinline mapper: (T) -> R): Observable<R> = object: Observable<R> {
 
@@ -54,7 +55,7 @@ fun <T> Observable<T>.subscribeOn(context: CoroutineContext): Observable<T> = ob
 
     override fun subscribe(subscriber: Subscriber<in T>) {
         var job: Job? = null
-        job = launch(context) {
+        job = GlobalScope.launch(context) {
 
             upstream.subscribe(object : Subscriber<T> {
                 override fun onComplete() = subscriber.onComplete()
@@ -95,14 +96,14 @@ fun <T> Observable<T>.observeOn(context: CoroutineContext): Observable<T> = obje
         upstream.subscribe(object : Subscriber<T> {
             var job: Job? = null
             override fun onComplete() {
-                job = launch(context) {
+                job = GlobalScope.launch(context) {
                     subscriber.onComplete()
                 }
             }
 
             override fun onNext(t: T) {
                 try {
-                    job = launch(context) {
+                    job = GlobalScope.launch(context) {
                         subscriber.onNext(t)
                     }
                 } catch (e: Throwable) {
@@ -111,7 +112,7 @@ fun <T> Observable<T>.observeOn(context: CoroutineContext): Observable<T> = obje
             }
 
             override fun onError(t: Throwable) {
-                launch(context) {
+                GlobalScope.launch(context) {
                     subscriber.onError(t)
                 }
             }
