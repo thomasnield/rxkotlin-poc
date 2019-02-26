@@ -1,11 +1,11 @@
 import io.reactivex.rxkotlin.observable.*
 import io.reactivex.rxkotlin.subscriber.subscribe
-import kotlinx.coroutines.experimental.CommonPool
-import kotlinx.coroutines.experimental.delay
-import kotlinx.coroutines.experimental.runBlocking
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.runBlocking
 import org.junit.Test
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicBoolean
+import kotlin.coroutines.EmptyCoroutineContext
 
 class ObservableTest {
     @Test
@@ -19,7 +19,7 @@ class ObservableTest {
     @Test
     fun testSubscribeOn() = runBlocking {
         Observable.just("Alpha", "Beta", "Gamma", "Delta")
-                .subscribeOn(CommonPool)
+                .subscribeOn(EmptyCoroutineContext)
                 .subscribe {
                     println("$it ${Thread.currentThread().name}")
                 }
@@ -28,10 +28,10 @@ class ObservableTest {
     @Test
     fun testObserveOn() = runBlocking {
         Observable.just("Alpha", "Beta", "Gamma", "Delta")
-                .subscribeOn(CommonPool)
+                .subscribeOn(EmptyCoroutineContext)
                 .doOnNext { println("$it ${Thread.currentThread().name}") }
                 .map { it.length }
-                .observeOn(CommonPool)
+                .observeOn(EmptyCoroutineContext)
                 .subscribe {
                     println("$it ${Thread.currentThread().name}")
                 }
